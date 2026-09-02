@@ -1,23 +1,26 @@
 import React, { useState } from 'react';
-import { Download, Menu, X } from 'lucide-react';
-import { contactData } from '../data/cvData';
+import { Download, Menu, X, Globe } from 'lucide-react';
+import { Language, uiTranslations, contactDataByLang } from '../data/cvData';
 
 interface NavbarProps {
-  onOpenPdf?: () => void;
   activeSection: string;
   setActiveSection: (section: string) => void;
+  lang: Language;
+  setLang: (lang: Language) => void;
 }
 
-export const Navbar: React.FC<NavbarProps> = ({ activeSection, setActiveSection }) => {
+export const Navbar: React.FC<NavbarProps> = ({ activeSection, setActiveSection, lang, setLang }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const t = uiTranslations[lang].nav;
+  const contact = contactDataByLang[lang];
 
   const navItems = [
-    { id: 'about', label: 'À propos' },
-    { id: 'experiences', label: 'Expériences' },
-    { id: 'projects', label: 'Projets IA & Web' },
-    { id: 'skills', label: 'Compétences' },
-    { id: 'education', label: 'Certifications & Master' },
-    { id: 'ai-assistant', label: 'Assistant IA' }
+    { id: 'about', label: t.about },
+    { id: 'experiences', label: t.experiences },
+    { id: 'projects', label: t.projects },
+    { id: 'skills', label: t.skills },
+    { id: 'education', label: t.education },
+    { id: 'ai-assistant', label: t.aiAssistant }
   ];
 
   const scrollTo = (id: string) => {
@@ -43,10 +46,10 @@ export const Navbar: React.FC<NavbarProps> = ({ activeSection, setActiveSection 
           </div>
           <div>
             <h1 className="font-bold text-sm sm:text-base text-zinc-900 group-hover:text-black transition-colors tracking-tight">
-              {contactData.name}
+              {contact.name}
             </h1>
             <p className="text-[11px] text-zinc-500 font-medium hidden sm:block">
-              Full Stack Senior • Java • Angular • Python
+              {contact.title}
             </p>
           </div>
         </button>
@@ -68,16 +71,43 @@ export const Navbar: React.FC<NavbarProps> = ({ activeSection, setActiveSection 
           ))}
         </nav>
 
-        {/* Actions (Download CV & Mobile Toggle) */}
+        {/* Actions (Language Switcher, Download CV & Mobile Toggle) */}
         <div className="flex items-center gap-2">
+          
+          {/* Language Switcher Pill */}
+          <div className="flex items-center bg-zinc-100 p-1 rounded-lg border border-zinc-200">
+            <button
+              onClick={() => setLang('fr')}
+              className={`px-2 py-1 rounded text-xs font-bold transition-all cursor-pointer ${
+                lang === 'fr'
+                  ? 'bg-white text-zinc-900 shadow-2xs'
+                  : 'text-zinc-500 hover:text-zinc-900'
+              }`}
+              title="Version Française"
+            >
+              FR
+            </button>
+            <button
+              onClick={() => setLang('en')}
+              className={`px-2 py-1 rounded text-xs font-bold transition-all cursor-pointer ${
+                lang === 'en'
+                  ? 'bg-white text-zinc-900 shadow-2xs'
+                  : 'text-zinc-500 hover:text-zinc-900'
+              }`}
+              title="English Version"
+            >
+              EN
+            </button>
+          </div>
+
           <a
-            href={contactData.pdfUrl}
+            href={contact.pdfUrl}
             download="Atef_Zoiaidi_CV.pdf"
             className="flex items-center gap-1.5 px-3.5 py-2 rounded-lg bg-zinc-900 hover:bg-black text-white font-semibold text-xs transition-all shadow-xs"
           >
             <Download className="w-3.5 h-3.5" />
-            <span className="hidden sm:inline">Télécharger CV</span>
-            <span className="sm:hidden">CV</span>
+            <span className="hidden sm:inline">{t.downloadCv}</span>
+            <span className="sm:hidden">{t.cvShort}</span>
           </a>
 
           {/* Hamburger button for mobile */}
@@ -112,4 +142,5 @@ export const Navbar: React.FC<NavbarProps> = ({ activeSection, setActiveSection 
     </header>
   );
 };
+
 

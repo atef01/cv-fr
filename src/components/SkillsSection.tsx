@@ -1,14 +1,17 @@
 import React, { useState } from 'react';
-import { Cpu, Search, CheckCircle2, Sparkles, Code2, Layers, BrainCircuit, ShoppingCart, Webhook, Cloud, Database, Bot } from 'lucide-react';
-import { skillCategories } from '../data/cvData';
+import { Cpu, Search, Code2, Layers, BrainCircuit, ShoppingCart, Webhook, Cloud, Database, Bot } from 'lucide-react';
+import { Language, skillCategoriesByLang, uiTranslations } from '../data/cvData';
 
 interface SkillsSectionProps {
+  lang: Language;
   selectedTechFilter: string | null;
   onSelectTechFilter: (tech: string) => void;
 }
 
-export const SkillsSection: React.FC<SkillsSectionProps> = ({ selectedTechFilter, onSelectTechFilter }) => {
+export const SkillsSection: React.FC<SkillsSectionProps> = ({ lang, selectedTechFilter, onSelectTechFilter }) => {
   const [searchTerm, setSearchTerm] = useState('');
+  const skillCategories = skillCategoriesByLang[lang];
+  const t = uiTranslations[lang].skills;
 
   const getCategoryIcon = (iconName: string) => {
     switch (iconName) {
@@ -33,10 +36,10 @@ export const SkillsSection: React.FC<SkillsSectionProps> = ({ selectedTechFilter
           <div>
             <div className="flex items-center gap-2 text-zinc-500 font-bold text-xs uppercase tracking-wider mb-2">
               <Cpu className="w-4 h-4 text-zinc-700" />
-              Stack & Expertise
+              {t.badge}
             </div>
             <h2 className="text-2xl sm:text-3xl font-extrabold text-zinc-900 tracking-tight">
-              Environnement Technologique
+              {t.title}
             </h2>
           </div>
 
@@ -45,7 +48,7 @@ export const SkillsSection: React.FC<SkillsSectionProps> = ({ selectedTechFilter
             <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-zinc-400" />
             <input 
               type="text"
-              placeholder="Rechercher un langage, framework..."
+              placeholder={t.searchPlaceholder}
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               className="w-full pl-9 pr-4 py-2 bg-white border border-zinc-200 rounded-xl text-xs text-zinc-900 focus:outline-none focus:border-zinc-400 placeholder-zinc-400 shadow-2xs"
@@ -99,9 +102,10 @@ export const SkillsSection: React.FC<SkillsSectionProps> = ({ selectedTechFilter
                 </div>
 
                 <div className="mt-5 pt-3 border-t border-zinc-100 text-[11px] text-zinc-500 font-medium flex items-center justify-between">
-                  <span>{filteredSkills.length} compétences</span>
-                  <span className="text-zinc-900 font-semibold">Expertise maîtrisée</span>
+                  <span>{filteredSkills.length} {t.skillCount}</span>
+                  <span className="text-zinc-900 font-semibold">{t.levelLabel}</span>
                 </div>
+
               </div>
             );
           })}
@@ -111,3 +115,4 @@ export const SkillsSection: React.FC<SkillsSectionProps> = ({ selectedTechFilter
     </section>
   );
 };
+

@@ -1,8 +1,15 @@
 import React from 'react';
-import { Mail, Phone, MapPin, Linkedin, ArrowUp } from 'lucide-react';
-import { contactData } from '../data/cvData';
+import { ArrowUp } from 'lucide-react';
+import { Language, contactDataByLang, uiTranslations } from '../data/cvData';
 
-export const Footer: React.FC = () => {
+interface FooterProps {
+  lang: Language;
+}
+
+export const Footer: React.FC<FooterProps> = ({ lang }) => {
+  const contact = contactDataByLang[lang];
+  const t = uiTranslations[lang].footer;
+
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
@@ -18,24 +25,24 @@ export const Footer: React.FC = () => {
                 AZ
               </div>
               <span className="font-bold text-base text-zinc-900 tracking-tight">
-                {contactData.name}
+                {contact.name}
               </span>
             </div>
             <p className="text-xs text-zinc-500 font-medium">
-              Développeur Full Stack Senior • Java, Angular, Python & IA
+              {contact.title}
             </p>
           </div>
 
           <div className="flex flex-wrap items-center justify-center gap-4 text-xs text-zinc-600 font-medium">
-            <a href={`mailto:${contactData.email}`} className="hover:text-black transition-colors">
-              {contactData.email}
+            <a href={`mailto:${contact.email}`} className="hover:text-black transition-colors">
+              {contact.email}
             </a>
             <span>•</span>
-            <a href={`tel:${contactData.phone.replace(/\s+/g, '')}`} className="hover:text-black transition-colors">
-              {contactData.phone}
+            <a href={`tel:${contact.phone.replace(/\s+/g, '')}`} className="hover:text-black transition-colors">
+              {contact.phone}
             </a>
             <span>•</span>
-            <a href={`https://${contactData.linkedin}`} target="_blank" rel="noreferrer" className="hover:text-black transition-colors">
+            <a href={`https://${contact.linkedin}`} target="_blank" rel="noreferrer" className="hover:text-black transition-colors">
               LinkedIn
             </a>
           </div>
@@ -44,16 +51,18 @@ export const Footer: React.FC = () => {
             onClick={scrollToTop}
             className="p-2.5 px-3.5 rounded-xl bg-zinc-100 border border-zinc-200 text-zinc-800 hover:bg-zinc-200 transition-all flex items-center gap-2 text-xs font-semibold cursor-pointer shadow-2xs"
           >
-            <span>Haut de page</span>
+            <span>{t.top}</span>
             <ArrowUp className="w-4 h-4 text-zinc-700" />
           </button>
         </div>
 
         <div className="pt-6 text-center text-xs text-zinc-400 font-medium">
-          © {new Date().getFullYear()} Atef Zoiaidi. Tous droits réservés. Développé avec React, TypeScript & Tailwind CSS.
+          © {new Date().getFullYear()} Atef Zoiaidi. {t.rights}
         </div>
+
 
       </div>
     </footer>
   );
 };
+

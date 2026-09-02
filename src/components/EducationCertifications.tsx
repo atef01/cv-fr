@@ -1,8 +1,15 @@
 import React from 'react';
-import { GraduationCap, Award, CheckCircle2, ShieldCheck, Landmark } from 'lucide-react';
-import { educationList, certifications } from '../data/cvData';
+import { GraduationCap, Award, ShieldCheck, Landmark } from 'lucide-react';
+import { Language, educationListByLang, certifications, uiTranslations } from '../data/cvData';
 
-export const EducationCertifications: React.FC = () => {
+interface EducationCertificationsProps {
+  lang: Language;
+}
+
+export const EducationCertifications: React.FC<EducationCertificationsProps> = ({ lang }) => {
+  const educationList = educationListByLang[lang];
+  const t = uiTranslations[lang].education;
+
   return (
     <section id="education" className="py-16 bg-white border-b border-zinc-200/80 relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -17,10 +24,10 @@ export const EducationCertifications: React.FC = () => {
               </div>
               <div>
                 <div className="text-xs font-bold uppercase text-zinc-500 tracking-wider">
-                  Accréditations Officieuses
+                  {t.certBadge}
                 </div>
                 <h3 className="text-xl font-bold text-zinc-900 tracking-tight">
-                  Certifications Oracle
+                  {t.certTitle}
                 </h3>
               </div>
             </div>
@@ -37,7 +44,7 @@ export const EducationCertifications: React.FC = () => {
                       {cert.title}
                     </h4>
                     <p className="text-xs text-zinc-500 font-medium">
-                      Émetteur: <span className="text-zinc-900 font-semibold">{cert.issuer}</span>
+                      {t.certIssuer} <span className="text-zinc-900 font-semibold">{cert.issuer}</span>
                     </p>
                   </div>
                 </div>
@@ -53,10 +60,10 @@ export const EducationCertifications: React.FC = () => {
               </div>
               <div>
                 <div className="text-xs font-bold uppercase text-zinc-500 tracking-wider">
-                  Cursus Académique
+                  {t.eduBadge}
                 </div>
                 <h3 className="text-xl font-bold text-zinc-900 tracking-tight">
-                  Formation Supérieure
+                  {t.eduTitle}
                 </h3>
               </div>
             </div>
@@ -93,3 +100,5 @@ export const EducationCertifications: React.FC = () => {
     </section>
   );
 };
+
+

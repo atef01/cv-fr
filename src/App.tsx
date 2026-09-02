@@ -7,8 +7,10 @@ import { SkillsSection } from './components/SkillsSection';
 import { EducationCertifications } from './components/EducationCertifications';
 import { AiAssistant } from './components/AiAssistant';
 import { Footer } from './components/Footer';
+import { Language } from './data/cvData';
 
 export function App() {
+  const [lang, setLang] = useState<Language>('fr');
   const [activeSection, setActiveSection] = useState('about');
   const [selectedTechFilter, setSelectedTechFilter] = useState<string | null>(null);
 
@@ -31,40 +33,53 @@ export function App() {
       <Navbar 
         activeSection={activeSection}
         setActiveSection={setActiveSection}
+        lang={lang}
+        setLang={setLang}
       />
 
       {/* Main Content */}
       <main className="flex-1">
         <Hero 
+          lang={lang}
           onSelectTechFilter={handleSelectTechFilter}
         />
 
         <ExperienceSection 
+          lang={lang}
           selectedTechFilter={selectedTechFilter}
           onClearFilter={handleClearFilter}
         />
 
         <ProjectsSection 
+          lang={lang}
           selectedTechFilter={selectedTechFilter}
           onSelectTechFilter={handleSelectTechFilter}
         />
 
         <SkillsSection 
+          lang={lang}
           selectedTechFilter={selectedTechFilter}
           onSelectTechFilter={handleSelectTechFilter}
         />
 
-        <EducationCertifications />
+        <EducationCertifications 
+          lang={lang}
+        />
 
-        <AiAssistant />
+        <AiAssistant 
+          lang={lang}
+        />
       </main>
 
       {/* Footer */}
-      <Footer />
+      <Footer 
+        lang={lang}
+      />
 
     </div>
   );
 }
 
 export default App;
+
 
