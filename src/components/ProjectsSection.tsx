@@ -1,23 +1,34 @@
 import React, { useState } from 'react';
-import { Rocket, ExternalLink, Sparkles, Code, Filter, Tag } from 'lucide-react';
-import { projects } from '../data/cvData';
-import { Project } from '../types';
+import { Rocket, ExternalLink } from 'lucide-react';
+import { Language, projectsByLang, uiTranslations } from '../data/cvData';
 
 interface ProjectsSectionProps {
+  lang: Language;
   selectedTechFilter: string | null;
   onSelectTechFilter: (tech: string) => void;
 }
 
-export const ProjectsSection: React.FC<ProjectsSectionProps> = ({ selectedTechFilter, onSelectTechFilter }) => {
-  const [activeCategory, setActiveCategory] = useState<string>('Tous');
+export const ProjectsSection: React.FC<ProjectsSectionProps> = ({ lang, selectedTechFilter, onSelectTechFilter }) => {
+  const [activeCategory, setActiveCategory] = useState<string>('all');
+  const projects = projectsByLang[lang];
+  const t = uiTranslations[lang].projects;
 
-  const categories = ['Tous', 'IA & NLP', 'E-commerce', 'Web & Cloud'];
+  const categoryKeys = ['all', 'ia', 'web'];
+  const categoryLabels: Record<string, string> = {
+    all: t.categories.all,
+    ia: t.categories.ia,
+    web: t.categories.web,
+  };
 
   const filteredProjects = projects.filter((proj) => {
-    const matchesCategory = activeCategory === 'Tous' || proj.category === activeCategory;
+    let matchesCategory = true;
+    if (activeCategory === 'ia') matchesCategory = proj.category.includes('IA') || proj.category.includes('AI') || proj.category.includes('NLP');
+    else if (activeCategory === 'web') matchesCategory = proj.category.includes('Web') || proj.category.includes('E-commerce');
+
     const matchesTech = !selectedTechFilter || proj.technologies.some(t => t.toLowerCase().includes(selectedTechFilter.toLowerCase()));
     return matchesCategory && matchesTech;
   });
+
 
   return (
     <section id="projects" className="py-16 bg-white border-b border-zinc-200/80 relative">
@@ -28,26 +39,26 @@ export const ProjectsSection: React.FC<ProjectsSectionProps> = ({ selectedTechFi
           <div>
             <div className="flex items-center gap-2 text-zinc-500 font-bold text-xs uppercase tracking-wider mb-2">
               <Rocket className="w-4 h-4 text-zinc-700" />
-              Réalisations Clés
+              {t.badge}
             </div>
             <h2 className="text-2xl sm:text-3xl font-extrabold text-zinc-900 tracking-tight">
-              Projets Majeurs & Innovations IA
+              {t.title}
             </h2>
           </div>
 
           {/* Category Tabs */}
           <div className="flex flex-wrap gap-1 bg-zinc-100 p-1 rounded-xl border border-zinc-200">
-            {categories.map((cat) => (
+            {categoryKeys.map((catKey) => (
               <button
-                key={cat}
-                onClick={() => setActiveCategory(cat)}
+                key={catKey}
+                onClick={() => setActiveCategory(catKey)}
                 className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all cursor-pointer ${
-                  activeCategory === cat
+                  activeCategory === catKey
                     ? 'bg-white text-zinc-900 shadow-xs font-bold border border-zinc-200/80'
                     : 'text-zinc-600 hover:text-zinc-900 hover:bg-zinc-200/50'
                 }`}
               >
-                {cat}
+                {categoryLabels[catKey]}
               </button>
             ))}
           </div>
@@ -77,7 +88,7 @@ export const ProjectsSection: React.FC<ProjectsSectionProps> = ({ selectedTechFi
 
                 {project.clientOrContext && (
                   <p className="text-xs text-zinc-500 font-semibold mb-3 flex items-center gap-1">
-                    <span>Context:</span>
+                    <span>{t.contextLabel}:</span>
                     <span className="text-zinc-800">{project.clientOrContext}</span>
                   </p>
                 )}
@@ -113,7 +124,7 @@ export const ProjectsSection: React.FC<ProjectsSectionProps> = ({ selectedTechFi
                     rel="noreferrer"
                     className="inline-flex items-center gap-1.5 text-xs font-bold text-zinc-900 hover:text-black hover:underline"
                   >
-                    <span>Visiter le projet</span>
+                    <span>{t.visitProject}</span>
                     <ExternalLink className="w-3.5 h-3.5" />
                   </a>
                 )}
@@ -127,3 +138,4 @@ export const ProjectsSection: React.FC<ProjectsSectionProps> = ({ selectedTechFi
     </section>
   );
 };
+
