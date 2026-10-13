@@ -9,8 +9,8 @@ export const contactDataByLang: Record<Language, ContactInfo> = {
     subtitle: "Java • Angular • Python • Systèmes d'IA & E-commerce",
     location: "Tunis, Tunisie",
     phone: "+216 55 791 882",
-    email: "atef.zoliaidi@gmail.com",
-    linkedin: "https://linkedin.com/in/atef-zoliaidi-010318aa",
+    email: "atef.zoiaidi@gmail.com",
+    linkedin: "https://linkedin.com/in/atef-zoiaidi-010318aa",
     pdfUrl: "/Atef_Zoiaidi_CV.pdf"
   },
   en: {
@@ -19,8 +19,8 @@ export const contactDataByLang: Record<Language, ContactInfo> = {
     subtitle: "Java • Angular • Python • AI Systems & E-commerce",
     location: "Tunis, Tunisia",
     phone: "+216 55 791 882",
-    email: "atef.zoliaidi@gmail.com",
-    linkedin: "https://linkedin.com/in/atef-zoliaidi-010318aa",
+    email: "atef.zoiaidi@gmail.com",
+    linkedin: "https://linkedin.com/in/atef-zoiaidi-010318aa",
     pdfUrl: "/Atef_Zoiaidi_CV.pdf"
   }
 };

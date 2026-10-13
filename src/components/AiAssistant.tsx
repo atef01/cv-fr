@@ -30,7 +30,7 @@ export const AiAssistant: React.FC<AiAssistantProps> = ({ lang }) => {
       } else if (query.includes('e-commerce') || query.includes('shopify') || query.includes('prestashop')) {
         setCustomResponse("Pendant 6 ans chez PulpTeck (certishopping.com), Atef a conçu et maintenu des plugins & apps pour Shopify, PrestaShop, Wix, WooCommerce et Magento avec intégration des APIs Google Ads et Meta.");
       } else if (query.includes('contact') || query.includes('email') || query.includes('telephone') || query.includes('recruter')) {
-        setCustomResponse("Vous pouvez contacter Atef directement par téléphone au +216 55 791 882 ou par e-mail à atef.zoliaidi@gmail.com.");
+        setCustomResponse("Vous pouvez contacter Atef directement par téléphone au +216 55 791 882 ou par e-mail à atef.zoiaidi@gmail.com.");
       } else {
         setCustomResponse(`Atef Zoiaidi est Développeur Full Stack Senior avec un Master en Big Data et 3 certifications Oracle. Il cumule +8 ans d'expérience sur des projets d'envergure en Java, Python, Angular, E-commerce et Intelligence Artificielle.`);
       }
@@ -44,7 +44,7 @@ export const AiAssistant: React.FC<AiAssistantProps> = ({ lang }) => {
       } else if (query.includes('e-commerce') || query.includes('shopify') || query.includes('prestashop')) {
         setCustomResponse("During 6 years at PulpTeck (certishopping.com), Atef designed and maintained plugins & apps for Shopify, PrestaShop, Wix, WooCommerce, and Magento with Google Ads and Meta API integrations.");
       } else if (query.includes('contact') || query.includes('email') || query.includes('phone') || query.includes('hire')) {
-        setCustomResponse("You can contact Atef directly by phone at +216 55 791 882 or by email at atef.zoliaidi@gmail.com.");
+        setCustomResponse("You can contact Atef directly by phone at +216 55 791 882 or by email at atef.zoiaidi@gmail.com.");
       } else {
         setCustomResponse(`Atef Zoiaidi is a Senior Full Stack Developer with a Master's degree in Big Data and 3 Oracle certifications. He brings 8+ years of experience across major projects in Java, Python, Angular, E-commerce, and Artificial Intelligence.`);
       }
